@@ -12,9 +12,6 @@ import java.time.LocalDate;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class PaymentDto {
 
-    @Positive
-    Long id;
-
     @NotNull(message = "ID записи ребенка в группе обязателен")
     Long groupChildrenId;
 
