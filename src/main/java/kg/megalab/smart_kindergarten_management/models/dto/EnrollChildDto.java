@@ -12,8 +12,6 @@ import java.time.LocalDate;
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class EnrollChildDto {
-    @Positive
-    Long childId; // если уже есть
 
     @NotBlank(message = "Имя обязательно")
     String firstName;
@@ -26,5 +24,5 @@ public class EnrollChildDto {
     @NotNull(message = "ID группы обязателен")
     Long groupId;
 
-    Integer price; // если индивидуальная цена
+    Double price; // если индивидуальная цена
 }
