@@ -2,6 +2,8 @@ package kg.megalab.smart_kindergarten_management.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import kg.megalab.smart_kindergarten_management.models.enums.TeacherDegree;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
@@ -13,15 +15,24 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Teacher extends BaseEntity {
 
-    @NotBlank
+    @NotBlank(message = "Имя обязательно")
     String firstName;
-    @NotBlank
+
+    @NotBlank(message = "Фамилия обязательна")
     String lastName;
+
+    String patronymic;
+
     String phoneNumber;
-    String degree;
+
+    @NotNull(message = "Степень/роль обязательна")
+    @Enumerated(EnumType.STRING)
+    TeacherDegree teacherDegree;
+
+    @NotNull(message = "Статус обязателен")
     Boolean active;
 
-    @OneToMany
+    @OneToMany(mappedBy = "teacher")
     List<Group> groups;
 
 }
