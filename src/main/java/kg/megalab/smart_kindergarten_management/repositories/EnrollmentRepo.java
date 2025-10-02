@@ -17,5 +17,6 @@ public interface EnrollmentRepo extends JpaRepository<Enrollment, Long> {
 
     Optional<Enrollment> findByChildAndEndDateIsNull(Child child);
 
+    @Query("SELECT e FROM Enrollment e WHERE e.child.id = :childId AND e.endDate IS NULL")
     Optional<Enrollment> findActiveEnrollmentByChildId(@Param("childId") Long childId);
 }
