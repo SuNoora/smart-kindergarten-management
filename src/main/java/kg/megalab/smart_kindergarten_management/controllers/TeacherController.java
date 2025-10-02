@@ -24,11 +24,9 @@ public class TeacherController {
 
     @PostMapping
     @Operation(summary = "Создание учителя", description = "Создает нового учителя в системе")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Учитель успешно создан"),
-            @ApiResponse(responseCode = "400", description = "Ошибка валидации"),
-            @ApiResponse(responseCode = "409", description = "Учитель уже существует")
-    })
+    @ApiResponse(responseCode = "201", description = "Учитель успешно создан")
+    @ApiResponse(responseCode = "400", description = "Ошибка валидации")
+    @ApiResponse(responseCode = "409", description = "Учитель уже существует")
     public ResponseEntity<TeacherDto> createTeacher(
             @Valid @RequestBody TeacherDto teacherDto) {
         TeacherDto createdTeacher = teacherService.createTeacher(teacherDto);

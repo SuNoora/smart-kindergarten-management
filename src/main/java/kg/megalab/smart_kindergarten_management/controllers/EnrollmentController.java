@@ -26,13 +26,12 @@ public class EnrollmentController {
     @PostMapping
     @Operation(summary = "Зачисление ребенка в группу",
             description = "Зачисление нового ребенка в садик и запись его в выбранную группу")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Ребенок успешно зачислен"),
-            @ApiResponse(responseCode = "400", description = "Ошибка валидации DTO"),
-            @ApiResponse(responseCode = "404", description = "Группа не найдена"),
-            @ApiResponse(responseCode = "409", description = "Группа заполнена"),
-            @ApiResponse(responseCode = "500", description = "Ошибка сервера")
-    })
+    @ApiResponse(responseCode = "201", description = "Ребенок успешно зачислен")
+    @ApiResponse(responseCode = "400", description = "Ошибка валидации DTO")
+    @ApiResponse(responseCode = "404", description = "Группа не найдена")
+    @ApiResponse(responseCode = "409", description = "Группа заполнена")
+    @ApiResponse(responseCode = "500", description = "Ошибка сервера")
+
     public ResponseEntity<Enrollment> enrollChild(@Valid @RequestBody EnrollChildDto enrollChildDto) {
         Enrollment enrollment = enrollmentService.enrollChild(enrollChildDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(enrollment);
@@ -41,12 +40,11 @@ public class EnrollmentController {
     @PutMapping("/{id}/withdraw")
     @Operation(summary = "Отчисление ребенка из группы",
             description = "Отчисление ребенка из группы с проставлением даты окончания")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Ребенок успешно отчислен"),
-            @ApiResponse(responseCode = "400", description = "Неверные данные"),
-            @ApiResponse(responseCode = "404", description = "Запись ребенка в группе не найдена"),
-            @ApiResponse(responseCode = "500", description = "Ошибка сервера")
-    })
+    @ApiResponse(responseCode = "200", description = "Ребенок успешно отчислен")
+    @ApiResponse(responseCode = "400", description = "Неверные данные")
+    @ApiResponse(responseCode = "404", description = "Запись ребенка в группе не найдена")
+    @ApiResponse(responseCode = "500", description = "Ошибка сервера")
+
     public ResponseEntity<Enrollment> withdrawChild(
             @Parameter(description = "ID записи ребенка в группе") @PathVariable Long id,
             @RequestBody(required = false) WithdrawChildDto withdrawChildDto) {

@@ -18,18 +18,16 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/group")
 @Tag(name = "Group Controller", description = "Методы управления группами")
 @RequiredArgsConstructor
-public class GroupController {
+public class GroupController{
 
     private final GroupService groupService;
 
     @PostMapping
     @Operation(summary = "Создание группы", description = "Создает новую группу в системе")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Группа успешно создана"),
-            @ApiResponse(responseCode = "400", description = "Ошибка валидации"),
-            @ApiResponse(responseCode = "404", description = "Связанная сущность не найдена"),
-            @ApiResponse(responseCode = "409", description = "Группа с таким названием уже существует")
-    })
+    @ApiResponse(responseCode = "201", description = "Группа успешно создана")
+    @ApiResponse(responseCode = "400", description = "Ошибка валидации")
+    @ApiResponse(responseCode = "404", description = "Связанная сущность не найдена")
+    @ApiResponse(responseCode = "409", description = "Группа с таким названием уже существует")
     public ResponseEntity<GroupDto> createGroup(
             @Valid @RequestBody GroupDto groupDto) {
         GroupDto createdGroup = groupService.createGroup(groupDto);
@@ -38,11 +36,9 @@ public class GroupController {
 
     @PutMapping("/{id}")
     @Operation(summary = "Обновление группы", description = "Обновляет информацию о группе")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Группа успешно обновлена"),
-            @ApiResponse(responseCode = "400", description = "Ошибка валидации"),
-            @ApiResponse(responseCode = "404", description = "Группа или связанные сущности не найдены")
-    })
+    @ApiResponse(responseCode = "200", description = "Группа успешно обновлена")
+    @ApiResponse(responseCode = "400", description = "Ошибка валидации")
+    @ApiResponse(responseCode = "404", description = "Группа или связанные сущности не найдены")
     public ResponseEntity<GroupDto> updateGroup(
             @Parameter(description = "ID группы") @PathVariable Long id,
             @Valid @RequestBody GroupDto groupDto) {
@@ -52,11 +48,9 @@ public class GroupController {
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Удаление группы", description = "Удаляет группу из системы")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Группа успешно удалена"),
-            @ApiResponse(responseCode = "404", description = "Группа не найдена"),
-            @ApiResponse(responseCode = "409", description = "Нельзя удалить группу с зачисленными детьми")
-    })
+    @ApiResponse(responseCode = "200", description = "Группа успешно удалена")
+    @ApiResponse(responseCode = "404", description = "Группа не найдена")
+    @ApiResponse(responseCode = "409", description = "Нельзя удалить группу с зачисленными детьми")
     public ResponseEntity<Void> deleteGroup(
             @Parameter(description = "ID группы") @PathVariable Long id) {
         groupService.deleteGroup(id);
@@ -65,10 +59,8 @@ public class GroupController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Получение группы по ID", description = "Возвращает информацию о группе с расширенными данными")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Группа найдена"),
-            @ApiResponse(responseCode = "404", description = "Группа не найдена")
-    })
+    @ApiResponse(responseCode = "200", description = "Группа найдена")
+    @ApiResponse(responseCode = "404", description = "Группа не найдена")
     public ResponseEntity<GroupDto> getGroupById(
             @Parameter(description = "ID группы") @PathVariable Long id) {
         GroupDto group = groupService.findGroupById(id);
@@ -78,14 +70,14 @@ public class GroupController {
     @GetMapping
     @Operation(summary = "Получение списка групп",
             description = "Возвращает список групп с пагинацией, отсортированный по категории")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Список групп найден"),
-            @ApiResponse(responseCode = "400", description = "Неверные параметры пагинации")
-    })
+    @ApiResponse(responseCode = "200", description = "Список групп найден")
+    @ApiResponse(responseCode = "400", description = "Неверные параметры пагинации")
+
     public ResponseEntity<Page<GroupDto>> getAllGroups(
             @Parameter(description = "Номер страницы (начиная с 0)") @RequestParam(defaultValue = "0") int page,
             @Parameter(description = "Размер страницы") @RequestParam(defaultValue = "10") int size) {
         Page<GroupDto> groups = groupService.findAllGroups(page, size);
         return ResponseEntity.ok(groups);
     }
+
 }
