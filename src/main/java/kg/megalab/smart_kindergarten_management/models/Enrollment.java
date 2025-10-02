@@ -1,5 +1,6 @@
 package kg.megalab.smart_kindergarten_management.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
@@ -29,12 +30,15 @@ public class Enrollment extends BaseEntity{
 
     @ManyToOne
     @JoinColumn(name = "child_id", nullable = false)
+    @JsonIgnoreProperties("enrollments")
     Child child;
 
     @ManyToOne
     @JoinColumn(name = "group_id", nullable = false)
+    @JsonIgnoreProperties("enrollments")
     Group group;
 
     @OneToMany(mappedBy = "enrollment")
+    @JsonIgnoreProperties("enrollment")
     List<Payment> payments;
 }

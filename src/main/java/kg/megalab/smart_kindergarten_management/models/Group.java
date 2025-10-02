@@ -1,5 +1,6 @@
 package kg.megalab.smart_kindergarten_management.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -48,5 +49,6 @@ public class Group extends BaseEntity{
     Teacher nanny;
 
     @OneToMany(mappedBy = "group")
+    @JsonIgnoreProperties("group")
     List<Enrollment> enrollments;
 }

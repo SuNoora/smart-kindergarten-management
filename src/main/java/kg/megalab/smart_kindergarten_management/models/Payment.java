@@ -1,5 +1,6 @@
 package kg.megalab.smart_kindergarten_management.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
@@ -19,6 +20,7 @@ public class Payment extends BaseEntity{
 
     @ManyToOne
     @JoinColumn(name = "enrollment_id", nullable = false)
+    @JsonIgnoreProperties("payments")
     Enrollment enrollment;
 
     @NotNull(message = "Сумма обязательна")

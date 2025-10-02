@@ -1,5 +1,6 @@
 package kg.megalab.smart_kindergarten_management.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -36,5 +37,6 @@ public class Child extends BaseEntity{
     String parentPhone;
 
     @OneToMany(mappedBy = "child")
+    @JsonIgnoreProperties("child")
     List<Enrollment> enrollments;
 }
