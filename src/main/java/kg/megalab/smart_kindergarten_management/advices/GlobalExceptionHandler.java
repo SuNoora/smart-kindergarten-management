@@ -1,6 +1,5 @@
 package kg.megalab.smart_kindergarten_management.advices;
 
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.ValidationException;
 import kg.megalab.smart_kindergarten_management.exceptions.ConflictException;
 import kg.megalab.smart_kindergarten_management.exceptions.NotFoundException;
@@ -13,7 +12,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(NotFoundException.class)
-    public ResponseEntity<String> handleNotFound(EntityNotFoundException e) {
+    public ResponseEntity<String> handleNotFound(NotFoundException e) {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
     }
 
