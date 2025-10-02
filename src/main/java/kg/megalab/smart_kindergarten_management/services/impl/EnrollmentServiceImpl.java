@@ -42,6 +42,12 @@ public class EnrollmentServiceImpl implements EnrollmentService {
         //  Поиск существующего ребенка или создаем нового
         Child child = findOrCreateChild(enrollChildDto);
 
+        // Проверяем, не зачислен ли уже ребенок в другую активную группу
+        enrollmentRepo.findByChildAndEndDateIsNull(child)
+                .ifPresent(existingEnrollment -> {
+                    throw new ConflictException("Ребенок уже зачислен в группу: " + existingEnrollment.getGroup().getName());
+                });
+
         Enrollment enrollment = enrollmentMapper.enrollChildDtoToEnrollment(enrollChildDto);
         enrollment.setChild(child);
         enrollment.setGroup(group);
