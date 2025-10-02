@@ -5,6 +5,7 @@ import kg.megalab.smart_kindergarten_management.exceptions.LogicException;
 import kg.megalab.smart_kindergarten_management.exceptions.NotFoundException;
 import kg.megalab.smart_kindergarten_management.mappers.GroupMapper;
 import kg.megalab.smart_kindergarten_management.models.Group;
+import kg.megalab.smart_kindergarten_management.models.GroupCategory;
 import kg.megalab.smart_kindergarten_management.models.dto.GroupDto;
 import kg.megalab.smart_kindergarten_management.repositories.GroupCategoryRepo;
 import kg.megalab.smart_kindergarten_management.repositories.GroupRepo;
@@ -37,8 +38,12 @@ public class GroupServiceImpl implements GroupService {
 
         validateRelatedEntities(groupDto);
 
+        GroupCategory category = groupCategoryRepo.findById(groupDto.getGroupCategoryId())
+                .orElseThrow(() -> new NotFoundException("Категория не найдена"));
 
         Group group = groupMapper.groupDtoToGroup(groupDto);
+        group.setGroupCategory(category); // ⚡ устанавливаем категорию
+
         Group savedGroup = groupRepo.save(group);
 
         return groupMapper.groupToGroupDto(savedGroup);
